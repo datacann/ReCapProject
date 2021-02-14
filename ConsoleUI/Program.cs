@@ -32,14 +32,23 @@ namespace ConsoleUI
             //{
             //    Console.WriteLine(car.Description);
             //}
-           
-                CarManager carManager = new CarManager(new EFCarDal());
 
-                foreach (var car in carManager.GetAll())
-                {
-                    Console.WriteLine(car.CarId);
-                }
+            //CarManager carManager = new CarManager(new EFCarDal());
+
+            //foreach (var car in carManager.GetAll())
+            //{
+            //    Console.WriteLine(car.CarId);
+            //}
+
+
             
+            {
+                Rental rental2 = new Rental { CarId = 1, CustomerId = 1, RentDate = DateTime.Now };
+                RentalManager rentalManager = new RentalManager(new EFRentalDal());
+
+                rentalManager.Add(rental2);
+            }
+
         }
     }
 
