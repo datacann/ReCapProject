@@ -50,14 +50,11 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Car>>(_carDal.GetAll());
         }
 
-        public IDataResult<List<Car>> GetByCarId(int id)
-        {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.CarId == id));
-        }
+        
 
         public IDataResult<Car> GetById(int id)
         {
-            throw new NotImplementedException();
+            return new SuccessDataResult<Car>(_carDal.Get(c => c.CarId == id));
         }
 
         public IDataResult<List<CarDetailDto>> GetCarDetails()
