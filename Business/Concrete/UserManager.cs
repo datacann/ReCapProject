@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Aotufac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -40,8 +42,10 @@ namespace Business.Concrete
             throw new NotImplementedException();
         }
 
+        [ValidationAspect(typeof(UserValidator))]
         public IResult Update(User user)
         {
+
             _userDal.Update(user);
             return new SuccessResult(Messages.UserUpdated);
         }

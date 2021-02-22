@@ -41,5 +41,6 @@ namespace Business.Constants
         internal static string RentalDeleted= "araç kiralama işlemi silindi";
         internal static string RentalUpdated= "araç güncellendi";
         internal static string ReturnDateNotNull = "araç kiralama tarihi dolu";
+        internal static string RentalAdded = "araç kiralama işlemi eklendi";
     }
 }
