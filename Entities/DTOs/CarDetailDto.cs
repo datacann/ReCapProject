@@ -15,6 +15,9 @@ namespace Entities.DTOs
         public int ModelYear { get; set; }
         public string Description { get; set; }
         public int DailyPrice { get; set; }
+        ///public int ImageID { get; set; }//////
+
+
 
     }
 }
