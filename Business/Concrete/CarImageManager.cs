@@ -38,11 +38,12 @@ namespace Business.Concrete
             return new SuccessResult();
         }
         [ValidationAspect(typeof(CarImageValidator))]
-        public IResult Delete(CarImage carImage)
+        public IResult Delete(CarImage carImage)//get ten gelendeğerleri buraya gönderir bunlar Image Tablosundaki Id ImagPath vb bilgilerini getirir
         {
-            FileHelper.Delete(carImage.ImagePath);
-            _carImageDAL.Delete(carImage);
+            FileHelper.Delete(carImage.ImagePath);//buradaki delete islemidir bu islem Filhelper ın Silme methodunu çalıstırır buraya Image tablosundan gelen ImagePath bu methoda verir 
+            _carImageDAL.Delete(carImage);//file helperdan sonra geldikten sonra burada veritabanınna uğrar ve ordaki tablodaki ilgili yeri siler
             return new SuccessResult();
+            
         }
         [ValidationAspect(typeof(CarImageValidator))]
         public IResult Update(IFormFile file, CarImage carImage)

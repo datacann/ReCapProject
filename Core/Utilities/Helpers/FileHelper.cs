@@ -17,15 +17,17 @@ namespace Core.Utilities.Helpers
                 using (var stream = new FileStream(sourcepath, FileMode.Create))
                 {
                     file.CopyTo(stream);
+                    stream.Flush();
                 }
+
             }
             var result = newPath(file);
             File.Move(sourcepath, result);
             return result;
         }
-        public static void Delete(string path)
+        public static void Delete(string path)//CarImageManger dan gelen değer suan path in içindedir 
         {
-            File.Delete(path);
+            File.Delete(path);//sonra burada File.delete islemi bu yolu alır kontrol eder varsa o dosyayı siler
         }
         public static string Update(string sourcePath, IFormFile file)
         {
@@ -45,7 +47,7 @@ namespace Core.Utilities.Helpers
             FileInfo ff = new FileInfo(file.FileName);
             string fileExtension = ff.Extension;
 
-            string path = Environment.CurrentDirectory + @"\Images\carImages";
+            string path = Environment.CurrentDirectory + @"\wwwroot\Images";
             var newPath = Guid.NewGuid().ToString() + "_" + DateTime.Now.Month + "_" + DateTime.Now.Day + "_" + DateTime.Now.Year + fileExtension;
 
             string result = $@"{path}\{newPath}";

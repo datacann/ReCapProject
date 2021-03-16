@@ -11,8 +11,7 @@ namespace Business.ValidationRules.FluentValidation
         public CarImageValidator()
         {
             RuleFor(ı => ı.CarId).NotEmpty().WithMessage("Fotoğrafa ait araç numarası boş bırakılamaz");
-            RuleFor(ı => ı.ImagePath).NotEmpty();
-            RuleFor(ı => ı.ImagePath).NotNull();
+            
         }
     }
 }
