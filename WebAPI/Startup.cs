@@ -51,6 +51,9 @@ namespace WebAPI
             //services.AddSingleton<IRentalService, RentalManager>();
             //services.AddSingleton<IRentalDal, EfRentalDal>();
 
+            services.AddCors();
+
+
             var tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -73,7 +76,7 @@ namespace WebAPI
                     new CoreModule()
                 });
             //services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            //ServiceTool.Create(services);
+            ServiceTool.Create(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -84,9 +87,15 @@ namespace WebAPI
                 app.UseDeveloperExceptionPage();
             }
 
+            app.ConfigureCustomExceptionMiddleware();
+
+            app.UseCors(builder=>builder.WithOrigins("http://localhost:63661").AllowAnyHeader().AllowAnyOrigin());
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseStaticFiles();
 
             app.UseAuthentication();
 

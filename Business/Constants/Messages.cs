@@ -56,5 +56,12 @@ namespace Business.Constants
         internal static string SuccessfulLogin;
         internal static string UserAlreadyExists;
         internal static string AccessTokenCreated;
+        internal static string RentalNotDelivered;
+        internal static string Deleted;
+        internal static string Updated;
+        internal static string Added;
+        internal static string CarAlreadyRented;
+        internal static string CustomerFindexPointIsZero;
+        internal static string CustomerScoreInvalid;
     }
 }

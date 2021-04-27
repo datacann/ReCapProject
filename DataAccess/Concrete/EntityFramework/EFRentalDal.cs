@@ -24,10 +24,11 @@ namespace DataAccess.Concrete.EntityFramework
                              on cus.UserId equals us.Id
                              select new RentalDetailDto
                              {
-                                 Id = re.Id,
-                                 CarId = ca.CarId,
+                                 RentalId = re.Id,                                
+                                 UserName = us.FirstName + " " + us.LastName,
                                  RentDate = re.RentDate,
-                                 UserName = us.FirstName + " " + us.LastName
+                                 ReturnDate = re.ReturnDate,
+                                 TotalPrice = Convert.ToDecimal(re.ReturnDate.Value.Day - re.RentDate.Day) * ca.DailyPrice
 
                              };
                 return result.ToList();

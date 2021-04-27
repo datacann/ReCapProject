@@ -1,6 +1,8 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspect.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Aotufac.Caching;
 using Core.Aspects.Aotufac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
@@ -23,23 +25,24 @@ namespace Business.Concrete
         }
 
         [ValidationAspect(typeof(CarValidator))]
+        [SecuredOperation("car.add,admin")]
         public IResult Add(Car car)
         {
             _carDal.Add(car);
             return new SuccessResult(Messages.CarAdded);
         }
-
+        [SecuredOperation("car.delete,admin")]
         public IResult Delete(Car car)
         {
             _carDal.Delete(car);
             return new SuccessResult(Messages.CarDeleted);
         }
 
-        public IDataResult<List<Car>> GetAll(Expression<Func<Car, bool>> filter = null)
-        {
-            _carDal.GetAll();
-            return new SuccessDataResult<List<Car>>(Messages.CarsListed);
-        }
+        //public IDataResult<List<Car>> GetAll(Expression<Func<Car, bool>> filter = null)
+        //{
+        //    _carDal.GetAll();
+        //    return new SuccessDataResult<List<Car>>(Messages.CarsListed);
+        //}
 
         public IDataResult<List<Car>> GetAll()
         {
@@ -53,22 +56,39 @@ namespace Business.Concrete
             return new SuccessDataResult<Car>(_carDal.Get(c => c.CarId == id));
         }
 
+
         public IDataResult<List<CarDetailDto>> GetCarDetails()
         {
+            
             return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails());
         }
 
-        public IDataResult<List<Car>> GetCarsByBrandId(int id)
+        
+
+        public IDataResult<List<CarDetailDto>> GetCarDetailsByCarId(int CarId)
         {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.BrandId == id));
+            
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(c=>c.CarId==CarId));
         }
 
-        public IDataResult<List<Car>> GetCarsByColorId(int id)
+
+
+
+        public IDataResult<List<CarDetailDto>> GetCarsByBrandId(int id)
         {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.ColorId == id));
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(c=>c.BrandId==id));
         }
+
+        public IDataResult<List<CarDetailDto>> GetCarsByColorId(int id)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(c => c.ColorId == id));
+        }
+
+
+
 
         [ValidationAspect(typeof(CarValidator))]
+        [SecuredOperation("car.update,admin")]
         public IResult Update(Car car)
         {
 

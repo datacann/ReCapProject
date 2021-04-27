@@ -4,6 +4,7 @@ using Core.Entities.Concrete;
 using Core.Utilities.Results;
 using Core.Utilities.Security.Hashing;
 using Core.Utilities.Security.JWT;
+using Entities.Concrete;
 using Entities.DTOs;
 using System;
 using System.Collections.Generic;
@@ -15,11 +16,13 @@ namespace Business.Concrete
     {
         private IUserService _userService;
         private ITokenHelper _tokenHelper;
+        private ICustomerService _customerService;
 
-        public AuthManager(IUserService userService, ITokenHelper tokenHelper)
+        public AuthManager(IUserService userService, ITokenHelper tokenHelper, ICustomerService customerService)
         {
             _userService = userService;
             _tokenHelper = tokenHelper;
+            _customerService = customerService;
         }
 
         public IDataResult<User> Register(UserForRegisterDto userForRegisterDto)
@@ -70,6 +73,43 @@ namespace Business.Concrete
             var claims = _userService.GetClaims(user);
             var accessToken = _tokenHelper.CreateToken(user, claims.Data);
             return new SuccessDataResult<AccessToken>(accessToken, Messages.AccessTokenCreated);
+        }
+
+        public IDataResult<UserForUpdateDto> Update(UserForUpdateDto userForUpdate)
+        {
+            var currentUser = _userService.GetById(userForUpdate.UserId);
+
+            var user = new User
+            {
+                Id = userForUpdate.UserId,
+                Email = userForUpdate.Email,
+                FirstName = userForUpdate.FirstName,
+                LastName = userForUpdate.LastName,
+                PasswordHash = currentUser.Data.PasswordHash,
+                PasswordSalt = currentUser.Data.PasswordSalt
+            };
+            byte[] passwordHash, passwordSalt;
+            if (userForUpdate.Password != "")
+            {
+                HashingHelper.CreatePasswordHash(userForUpdate.Password, out passwordHash, out passwordSalt);
+
+                user.PasswordHash = passwordHash;
+                user.PasswordSalt = passwordSalt;
+            }
+
+            _userService.Update(user);
+
+            var customer = new Customer
+            {
+                Id = userForUpdate.CustomerId,
+                UserId = userForUpdate.UserId,
+                CompanyName = userForUpdate.CompanyName,
+                CustomerFindexPoint = userForUpdate.FindexPoint
+            };
+
+            _customerService.Update(customer);
+
+            return new SuccessDataResult<UserForUpdateDto>(userForUpdate, Messages.CustomerUpdated);
         }
     }
 }

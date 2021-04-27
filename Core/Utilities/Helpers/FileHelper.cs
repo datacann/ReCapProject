@@ -9,21 +9,25 @@ namespace Core.Utilities.Helpers
 {
     public class FileHelper
     {
-        public static string Add(IFormFile file)
+        public static string Add(IFormFile fromFile)
         {
-            var sourcepath = Path.GetTempFileName();
-            if (file.Length > 0)
-            {
-                using (var stream = new FileStream(sourcepath, FileMode.Create))
-                {
-                    file.CopyTo(stream);
-                    stream.Flush();
-                }
+            string extension = Path.GetExtension(fromFile.FileName);
+            string newGuid = CreateGuid() + extension;
+            string fullPath = Directory.GetCurrentDirectory() + @"\wwwroot\Images";
+            string savePath = @"\Images";
 
+            if (!Directory.Exists(fullPath))
+            {
+                Directory.CreateDirectory(fullPath);
             }
-            var result = newPath(file);
-            File.Move(sourcepath, result);
-            return result;
+            string imagePath;
+            using (FileStream fileStream = File.Create(fullPath + "\\" + newGuid))
+            {
+                fromFile.CopyTo(fileStream);
+                fileStream.Flush();
+                imagePath = savePath + "\\" + newGuid;
+            }
+            return imagePath;
         }
         public static void Delete(string path)//CarImageManger dan gelen değer suan path in içindedir 
         {
@@ -52,6 +56,10 @@ namespace Core.Utilities.Helpers
 
             string result = $@"{path}\{newPath}";
             return result;
+        }
+        private static string CreateGuid()
+        {
+            return Guid.NewGuid().ToString("N") + "-" + DateTime.Now.Month + "-" + DateTime.Now.Day + "-" + DateTime.Now.Year;
         }
 
     }
