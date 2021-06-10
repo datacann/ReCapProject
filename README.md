@@ -28,3 +28,18 @@ Consolda bütün CRUD test işlemleri gerçekleştirilmektedir. Ayrıca GetCarDe
 
 WEBAPI
 Eklenen resimler API içerisindeki wwwroot içerisinde tutuldu. API aracılığyla resim ekleme işlemi gerçekleştirildi. WebAPI bölümü oluşturuldu. Business katmanındaki bütün servisler için API karşılığı getirildi.
+
+
+![READı](https://user-images.githubusercontent.com/59285855/121585127-e5f6c200-ca3a-11eb-8a2b-a230dec6871e.PNG)
+
+![2ı](https://user-images.githubusercontent.com/59285855/121585293-15a5ca00-ca3b-11eb-9824-9432e36292d1.PNG)
+
+![3Alıntısı](https://user-images.githubusercontent.com/59285855/121585369-2d7d4e00-ca3b-11eb-8b62-8d17a9e0bceb.PNG)
+
+![4Alıntısı](https://user-images.githubusercontent.com/59285855/121585394-353cf280-ca3b-11eb-8420-467e156d74ff.PNG)
+
+![5Alıntısı](https://user-images.githubusercontent.com/59285855/121585492-543b8480-ca3b-11eb-8e7b-18ee1549829d.PNG)
+
+![6Alıntısı](https://user-images.githubusercontent.com/59285855/121585553-63bacd80-ca3b-11eb-8739-9c9d39bd24e8.PNG)
+
+![7Alıntısı](https://user-images.githubusercontent.com/59285855/121585721-91077b80-ca3b-11eb-995b-3d69a972036a.PNG)
