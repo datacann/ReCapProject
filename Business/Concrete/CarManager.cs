@@ -10,8 +10,9 @@ using Entities.Concrete;
 using Entities.DTOs;
 using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
+using System.Linq;
 using System.Text;
+
 
 namespace Business.Concrete
 {
@@ -65,10 +66,10 @@ namespace Business.Concrete
 
         
 
-        public IDataResult<List<CarDetailDto>> GetCarDetailsByCarId(int CarId)
+        public IDataResult<CarDetailDto> GetCarDetailsByCarId(int CarId)
         {
             
-            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(c=>c.CarId==CarId));
+            return new SuccessDataResult<CarDetailDto>(_carDal.GetCarDetails(c=>c.CarId==CarId).SingleOrDefault());
         }
 
 

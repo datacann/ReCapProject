@@ -11,7 +11,7 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CreditCardsController: ControllerBase
+    public class CreditCardsController : ControllerBase
     {
         ICreditCardService _creditCardService;
 
@@ -92,5 +92,16 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
+        [HttpPost("verifycard")]
+        public IActionResult VerifyCard(CreditCard creditCard)
+        {
+            var result = _creditCardService.VerifyCard(creditCard);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return Ok(result);
+
+        }
     }
 }

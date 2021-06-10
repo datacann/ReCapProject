@@ -48,6 +48,8 @@ namespace Business.Concrete
             return new SuccessDataResult<List<CreditCard>>(result);
         }
 
+        
+
         public IResult Update(CreditCard creditCard)
         {
             _creditCardDal.Update(creditCard);
