@@ -1,33 +1,20 @@
-İkinci El Araç Satış Platformu
+Rent A Car
 
+RECENT UPDATES CustomerDetailDto has been created for the frontend side, CarDetailDto and RentalDetailDto sections have been edited. For these DTOs, implementations up to the API side were carried out. Tested via Postman and data verified. Cache, Transaction and Performance integration has been made. !!! Json Web Token INTEGRATION has been done.
 
+CORE IEntity, IDto, IEntityRepository, EfEntityRepositoryBase structures were created in this layer. IDto: Interface created for objects that can be pulled with special queries. IEntityRepository: It holds the basic database operations for the interfaces in the Real DataAccess layer, which can be easily implemented with the T generic structure. EfEntityRepositoryBase: It will provide a concrete interface implementation for the basic database operations with the help of the object (entity) that will create the context and structure in a generic structure for the Entity Framework structure. holding the skeleton. ICrudServices: It has been created in a generic structure to facilitate the applicability of similar database operations for services belonging to different objects in the real Business layer. Added Autofac support. Added Fluent Validation support. A basic level introduction to (A)spect (O)riented (P)rogramming has been performed.
 
-SON GÜNCELLEMELER
-Frontend tarafı için CustomerDetailDto oluşturuldu, CarDetailDto ve RentalDetailDto bölümleri düzenlendi. Bu Dto'lar için API tarafına kadar olan implementasyonları gerçekleştirildi. Postman üzerinden test edildi ve veriler doğrulandı. Cache, Transaction ve Performance entegrasyonu yapıldı. !!! Json Web Token ENTEGRASYONU yapıldı.
+A related entity has been created for the CarImages table and related columns (Id,CarId,ImagePath,Date) on the ENTITIES Database. An object holding vehicle properties was created with a class named Car. As feature: Id, BrandId, ColorId, ModelYear, DailyPrice, Description fields have been added. Added Brand and Color objects. These objects have Id and Name properties. The Users table has been created. Customers table was created Rentals table was created and Key assignments were made. Entities corresponding to the elements in these tables were created in the project. New users, customers and rental records are created. (SQL)
 
-CORE
-IEntity, IDto, IEntityRepository, EfEntityRepositoryBase yapıları bu katman içerisinde oluşturuldu. IDto: Özel sorgular ile çekilebilecek nesneler için oluşturulan arayüz. IEntityRepository: T generic yapısı ile kolayca implemente edilebilen, Gerçek DataAccess katmanındaki arayüzler için temel database işlemlerini tutmaktadır., EfEntityRepositoryBase: Entity Framework yapısı için yine generic bir yapıda context ve yapısını oluşturacak olan nesnesi(entity) yardımıyla temel database işlemleri için somut bir arayüz implementasyonunu sağlayacak iskeleti tutmaktadır. ICrudServices: Gerçek Business katmanında farklı nesnelere ait servisler için benzer veri tabanı işlemlerinin uygulanabilirliğini kolaylaştırmak amacıyla generic yapıda oluşturulmuştur. Autofac desteği getirildi. Fluent Validation desteği getirildi. (A)spect (O)riented (P)rogramming temel seviye giriş gerçekleştirildi.
+DATAACCESS Image deletion, update permissions have been added. It includes operations such as adding, deleting, listing from the database. The necessary queries for the database have been added to the project. Entity Framework infrastructure is written for Car, Brand and Color objects. CRUD operations were written for the newly added Customers, Users and Rentals in DAL operations.
 
-ENTITIES
-Database üzerinde CarImages tablosu ve ilgili sütunlar için (Id,CarId,ImagePath,Date) ilgili varlık oluşturuldu. Car adında bir sınıf ile araç özelliklerini tutan nesne oluşturuldu. Özellik olarak : Id, BrandId, ColorId, ModelYear, DailyPrice, Description alanları eklendi. Brand ve Color nesneleri eklendi. Bu nesneler Id ve Name özelliklerini taşımaktadırlar. Users tablosu oluşturuldu. Customers tablosu oluşturuldu Rentals tablosu oluşturuldu ve Key atamaları yapıldı. Projede bu tablolardaki elemanlara karşılık gelecek Entity'ler oluşturuldu. Yeni kullanıcılar, müşteriler ve kira kayıtları oluşturuldu. (SQL)
+BUSINESS The possibility to list pictures of a car has been created. However, the company logo was used when there was no vehicle on the list. The date the picture was added will be automatically assigned by the system at the entity level with the help of encapsulation. When an arbitrary value is given, the system will take that value as a date. Added a maximum of 5 images for a car. Added image deletion, update permissions. Via the Data Access layer
 
-DATAACCESS
-Resim silme, güncelleme yetkileri eklendi. Veritabanından ekleme, silme, listeleme gibi işlemleri içermektedir. Database için gerekli sorgular projeye eklenmiştir. Car, Brand ve Color nesneleri için Entity Framework altyapısını yazılmıştır. DAL operasyonlarında yeni eklenen Customers, Users ve Rentals için CRUD işlemleri yazıldı.
+GetAllService() : Returning all vehicles in the list, GetById(int id) : Returns an object associated with an externally given ID. AddService(T entity) : Adding an externally given object to the system, UpdateService(T entity) : Updating the matching advertisement of an externally given object in the system, DeleteService(T entity) : Deleting the advertisement that matches with an externally given object. New restrictions have been introduced with Fluent Validation.
 
-BUSINESS
-Bir arabaya ait resimleri listeleme imkanı oluşturuldu. Fakat listede araç olmadığında şirket logosu kullanıldı. Resmin eklendiği tarih, sistem tarafından otomatik olarak encapsulation yardımıyla entity seviyesinde atanacaktır. Keyfi değer verildiğinde ise sistem o değeri tarih olarak alacaktır. Bir araba için maksimum 5 resim ekleme kısıtı getirildi. Resim silme, güncelleme yetkileri eklendi. Data Access katmanı aracılığıyla
+All CRUD testing operations are performed in the CONSOLEUI Console. In addition, with GetCarDetails(), CarName, BrandName, ColorName, DailyPrice information in different tables were brought together by joining the tables. Added new test operations on Program.cs. The possibility of renting was realized on the code. If the vehicle has not been received by the office, a new rental transaction is blocked.
 
-GetAllService() : Liste içerisindeki bütün araçları döndürmek,
-GetById(int id) : Dışarıdan verilen bir ID ile ilişkili nesneyi döndürmektedir.
-AddService(T entity) : Dışarıdan verilen bir nesnenin sisteme eklenmesi,
-UpdateService(T entity) : Dışarıdan verilen bir nesnenin sistemdeki eşleşen ilanın güncellenmesi,
-DeleteService(T entity) : Yine dışarıdan verilen bir nesne ile eşleşen ilanın silinmesi fonksiyonları gerçekleştirilmiştir. Fluent Validation ile yeni kısıtlamalar getirildi.
-
-CONSOLEUI
-Consolda bütün CRUD test işlemleri gerçekleştirilmektedir. Ayrıca GetCarDetails() ile farklı tablolarda bulunan CarName, BrandName, ColorName, DailyPrice bilgileri tabloların join edilmesi işlemi ile bir araya getirildi. Program.cs üzerinde yeni test operasyonları eklendi. Kiralama imkanı kod üzerinde gerçekleştirildi. Eğer araç ofis tarafından teslim alınmamışsa, yeni kiralama işlemi yapılması engellendi.
-
-WEBAPI
-Eklenen resimler API içerisindeki wwwroot içerisinde tutuldu. API aracılığyla resim ekleme işlemi gerçekleştirildi. WebAPI bölümü oluşturuldu. Business katmanındaki bütün servisler için API karşılığı getirildi.
+WEBAPI Added images are kept in wwwroot in API. Image insertion was done via API. WebAPI part created. An API has been introduced for all services in the Business layer.
 
 
 ![READı](https://user-images.githubusercontent.com/59285855/121585127-e5f6c200-ca3a-11eb-8a2b-a230dec6871e.PNG)
